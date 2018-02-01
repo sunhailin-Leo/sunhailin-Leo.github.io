@@ -3,6 +3,68 @@
   
     
     <entry>
+      <title><![CDATA[Windows10下多版本Python安装及使用]]></title>
+      <url>/2018/01/31/multi_python_configure_win/</url>
+      <content type="html"><![CDATA[<hr>
+<ul>
+<li><p>系统版本: Windows 10 (x64)</p>
+</li>
+<li><p>共存版本: Python3.4.4 / Python3.6.4</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>安装就不讲了很简单的（记得选自定义安装，选好目录）</p>
+</li>
+<li><p>安装之后分别配置环境变量（记得！是分别配置）</p>
+</li>
+<li><p>然后修改每个Python下的python.exe和pythonw.exe</p>
+<ul>
+<li>注：自己是python3.4和python3.6共存;所以我改成了python34.exe pythonw34.exe(3.6的那个同理)</li>
+</ul>
+</li>
+<li><p>修改好后去CMD测试下 (python34和python36)</p>
+</li>
+<li><p>测试成功后，测试下pip3.4（python3.4的pip命令）…结果应该是不行的</p>
+</li>
+<li><p>解决办法: 这时候在CMD分别输入如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python34 -m pip install --upgrade pip --force-reinstall</span><br><span class="line">python36 -m pip install --upgrade pip --force-reinstall</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后再测试下pip3.4 和 pip3.6</p>
+</li>
+<li><p>最后提醒下！以后安装东西就需要指定版本了</p>
+</li>
+<li><p>例如安装lxml：就是pip3.6 install lxml了 (一定要切记!)</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>用过Pycharm的同学请注意：</li>
+</ul>
+<ol>
+<li><p>之前有用Pycharm写过项目的记得去Pycharm的Python解释器修改下路径就ok了~</p>
+</li>
+<li><p>新建项目默认是最新版本的解释器,如果需要切换的记得调整下Project Intercepter.</p>
+</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 多版本共存 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[阿里云配置Gitlab]]></title>
       <url>/2018/01/30/Aliyun_Gitlab_configure/</url>
       <content type="html"><![CDATA[<p>Gitlab服务端的配置<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1517464994746&amp;di=a27b7f2ce6dfe8da7b7abb16afa7649f&amp;imgtype=0&amp;src=http%3A%2F%2Fblog.devzeng.com%2Fimages%2Fgitlab_usage%2Flogo.png" alt="Gitlab"></p>
