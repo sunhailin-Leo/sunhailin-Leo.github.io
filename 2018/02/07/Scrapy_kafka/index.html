@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Scrapy-Kafka Demo"><meta name="keywords" content="Scrapy,Kafka"><meta name="author" content="sunhailin-Leo,undefined"><meta name="copyright" content="sunhailin-Leo"><title>Scrapy-Kafka Demo | LeoBlog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css?version=undefined"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?19982fade18128291ac156db52a34f03";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><script>var GLOBAL = { 
+  root: '/',
+  algolia: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  localSearch: {"labels":{"input_placeholder":"查询文章","hits_empty":"找不到任何记录: ${query}"},"path":"search.xml"}
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scrapy-amp-Kafka的一个Demo"><span class="toc-number">1.</span> <span class="toc-text">Scrapy &amp; Kafka的一个Demo.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Start"><span class="toc-number"></span> <span class="toc-text">开头说两句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ready"><span class="toc-number"></span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Env"><span class="toc-number"></span> <span class="toc-text">环境依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Structure"><span class="toc-number"></span> <span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attention"><span class="toc-number"></span> <span class="toc-text">需要注意的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZookeeperInstall"><span class="toc-number"></span> <span class="toc-text">Zookeeper安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KafkaInstall"><span class="toc-number"></span> <span class="toc-text">Kafka安装</span></a></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://s1.ax1x.com/2018/01/28/pvTc0f.jpg"></div><div class="author-info__name text-center">sunhailin-Leo</div><div class="author-info__description text-center">会爬虫会数据分析想学大数据还没毕业的苦逼孩纸</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">12</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">4</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">链接</div><a class="author-info-links__name text-center" href="https://juejin.im/user/5a17ce3451882503eb4af750" target="_blank">我的掘金博客</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://s1.ax1x.com/2018/01/28/pvTemV.jpg);"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">LeoBlog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">主页</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">Scrapy-Kafka Demo</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-02-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Python/">Python</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">744</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div id="post-content"><h4 id="Scrapy-amp-Kafka的一个Demo"><a href="#Scrapy-amp-Kafka的一个Demo" class="headerlink" title="Scrapy &amp; Kafka的一个Demo."></a>Scrapy &amp; Kafka的一个Demo.</h4><ul>
+<li>实现Scrapy通过kafka producer发送数据给consumer消费.<a id="more"></a>
+</li>
+</ul>
+<hr>
+<ul>
+<li>英文介绍（English）<br>English README.md <a href="https://github.com/sunhailin-Leo/Scrapy-Kafka-Demo/blob/master/README_en.md" target="_blank" rel="noopener">Here</a></li>
+</ul>
+<hr>
+<h3 id="Start">开头说两句</h3>
+
+<ul>
+<li>使用中有什么问题的可以给我提issue，或者直接私聊我</li>
+<li>Email: 379978424@qq.com</li>
+<li>QQ: 379978424</li>
+</ul>
+<hr>
+<h3 id="Ready">准备工作</h3>
+
+<ul>
+<li>Zookeeper环境（zookeeper-3.4.10） -&gt; 具体安装下面讲 <a href="#ZookeeperInstall">安装步骤</a></li>
+<li>Kafka环境（kafka-1.0.0） -&gt; 具体安装下面讲 <a href="#KafkaInstall">安装步骤</a></li>
+<li>系统环境（Win10 x64）</li>
+<li>Python环境（Python 3.4.4）</li>
+</ul>
+<hr>
+<h3 id="Env">环境依赖</h3>
+
+<ul>
+<li>环境<ul>
+<li>Python3.4.4（Python2暂未测试,如果有测试过的给我提下issue）</li>
+</ul>
+</li>
+<li>依赖包<ul>
+<li>Scrapy</li>
+<li>pykafka</li>
+</ul>
+</li>
+<li>安装方式:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">windows: pip install requirements.txt</span><br><span class="line">linux: pip3 install requiremnets.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Structure">项目结构</h3>
+
+<ul>
+<li>consumer — pykafka的消费者模块（测试接收以及之后接收爬虫数据）</li>
+<li>producer — pykafka的生产者模块（测试发送）</li>
+<li>scrapy_kafka — Scrapy + pykafka的爬虫（爬的是我学校的官网的所有a标签链接）</li>
+</ul>
+<hr>
+<h3 id="attention">需要注意的地方</h3>
+
+<ul>
+<li>爬虫部分我就不说了，我就挑特别的地方</li>
+</ul>
+<ol>
+<li>kafka需要bytes数据,所以在pipeline接收到数据之后一定要encode;encode里面的encoding和消费者的decode编码要一致.</li>
+<li>pipeline里面实现一个方法 close_spider(self, spider) 用来关闭producer;不然Scrapy会一直挂在producer那里不动. </li>
+<li>我在pipeline里面判断了KAFKA_IP_PORT这个配置写的参数:<ul>
+<li>单机部署可以用list或者str表示.</li>
+<li>伪分布或者全分布可以用list,或者用逗号隔开都可以.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="ZookeeperInstall">Zookeeper安装</h3>
+
+<ul>
+<li>我大致说下Zookeeper的安装过程(以下都是单点测试, 伪分布和全分布还请各位完整学习完后再搭建)</li>
+</ul>
+<ol>
+<li>下载zookeeper.<a href="https://www.apache.org/dyn/closer.cgi/zookeeper/" target="_blank" rel="noopener">下载地址</a></li>
+<li>解压在conf\下把zoo_sample.cfg 复制为zoo.cfg</li>
+<li>在系统环境变量中创建ZOOKEEPER_HOME值为zookeeper的Home目录</li>
+<li>在PATH中添加zookeeper的bin目录.</li>
+<li>在cmd中运行 zkServer</li>
+</ol>
+<hr>
+<h3 id="KafkaInstall">Kafka安装</h3>
+
+<ul>
+<li>也一样是单点</li>
+</ul>
+<ol>
+<li>下载kafka并解压.<a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">下载地址</a></li>
+<li>进入解压后的文件夹, 在conf下修改server.properties文件中log.dirs指定log目录</li>
+<li>配置系统环境变量KAFKA_HOME</li>
+<li>在PATH中添加kafka bin/windows的目录（linux的不用理windows那个文件夹）</li>
+<li>启动kafka: kafka-server-start <kafka目录下config里面的server.properties的路径></kafka目录下config里面的server.properties的路径></li>
+</ol>
+<ul>
+<li>关于kafka的测试</li>
+</ul>
+<ol>
+<li>创建topic：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics --create --topic newtest --partitions 1 --replication-factor 1 --zookeeper localhost:2181</span><br></pre></td></tr></table></figure>
+<ul>
+<li>意思是：创建一个topic; 名字：newtest; 分区：1个; 副本数：1个; zookeeper的监听地址(由于是单点且若未修改zoo.cfg, 则zookeeper默认在2181端口上运行)</li>
+</ul>
+<ol>
+<li>创建producer:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-producer --broker-list localhost:9092 --topic newtest</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时窗口会到达等待输入的状态，先别关闭也不着急输入。启动consumer先。</li>
+</ul>
+<ol>
+<li>创建consumer</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer  --zookeeper localhost:2181 --topic newtest</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当consumer创建成功后，回到producer的窗口输入一些字符什么的，看看consumer有没有出现(注：中文有可能是乱码,但不影响测试)</li>
+</ul>
+<ol>
+<li>其他操作就请各位去参见kafka的官方文档或者系统学习后看看命令行的使用。</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">sunhailin-Leo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.leoyuki.xyz/2018/02/07/Scrapy_kafka/">http://www.leoyuki.xyz/2018/02/07/Scrapy_kafka/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明来自 <a href="http://www.leoyuki.xyz" target="_blank">LeoBlog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Scrapy/">Scrapy</a><a class="post-meta__tags" href="/tags/Kafka/">Kafka</a></div><elif theme.sharejs && theme.sharejs.enable></elif></article><nav id="pagination"><div class="next-post pull-right"><a href="/2018/02/06/Sanic_wx_dev_demo/"><span>Sanic 微信公众号开发 --- 初探</span><i class="fa fa-chevron-right"></i></a></div></nav><elif theme.laibili && theme.laibili.enable></elif><elif theme.gitment && theme.gitment.enable></elif><elif theme.valine && theme.valine.enable><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+    el:'#vcomment',
+    notify:notify,
+    verify:verify,
+    appId:'',
+    appKey:'',
+    placeholder:'Just go go',
+    avatar:'mm',
+    guest_info:guest_info,
+    pageSize:'10'
+})</script></elif></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By sunhailin-Leo</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="icp"><a href="http://www.miitbeian.gov.cn/"><span>粤ICP备18015921号-1</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.4.2"></script><script src="/js/fancybox.js?version=1.4.2"></script><script src="/js/sidebar.js?version=1.4.2"></script><script src="/js/copy.js?version=1.4.2"></script><script src="/js/fireworks.js?version=1.4.2"></script><script src="/js/transition.js?version=1.4.2"></script><script src="/js/scroll.js?version=1.4.2"></script><script src="/js/head.js?version=1.4.2"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
